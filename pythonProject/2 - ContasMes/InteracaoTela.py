@@ -1,6 +1,6 @@
 import datetime
-from SQLServer import ConexaoBD
-from tkinter import ttk
+from Conexao import ConexaoBD
+from tkinter import ttk, messagebox
 from tkinter import *
 from TelaPDF import TelaPDF
 class Interagir:
@@ -58,7 +58,30 @@ class Interagir:
         valor = self.txtValor.get()
         parcela = self.cbparcela.get()
 
-        self.conexao.execute(self.comando, conta, produto, valor, int(parcela))
+        if not produto:
+            messagebox.showinfo("Erro", "O campo produto está vazio! Favor preencher.")
+            return
+
+        if not conta:
+            messagebox.showinfo("Erro", "O campo tipo do produto está vazio! Favor preencher.")
+            return
+
+        if not parcela:
+            messagebox.showinfo("Erro", "O campo parcela está vazio! Favor preencher.")
+            return
+
+        if not valor:
+            messagebox.showinfo("Erro", "O campo valor está vazio! Favor preencher.")
+            return
+
+        resultado = self.conexao.execute(self.comando, conta, produto, valor, int(parcela))
+
+        if resultado.description != None:
+            message = self.conexao.fetchone()[0]
+            messagebox.showerror("Erro", message)
+            self.conexao.close()
+            return
+
         self.conexao.commit()
         self.conexao.close()
 

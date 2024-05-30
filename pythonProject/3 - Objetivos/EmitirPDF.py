@@ -8,10 +8,10 @@ from Conexao import ConexaoBD
 
 class EmitirPDF:
     def criar_pdf(self, caminho):
-        # Definir o tamanho da página e criar o objeto do documento
+        #Definir o tamanho da página e criar o objeto do documento
         doc = SimpleDocTemplate(caminho, pagesize=letter)
 
-        # Definir o estilo do parágrafo
+        #Definir o estilo do parágrafo
         styles = getSampleStyleSheet()
         estilo_titulo = styles["Title"]
         estilo_texto = ParagraphStyle(
@@ -22,12 +22,12 @@ class EmitirPDF:
         )
 
         if self.escolha.get() == 'Op1':
-            texto = Paragraph("Relatório que contém todas as cobranças realizadas ao longo dos anos.",
+            texto = Paragraph("Relatório que contém todas os objetivos ativos e finalizados.",
                               estilo_texto)
-            self.comando = "pRelatorioCobrancas ?, ?, ?, ?, ?"
+            self.comando = "pRelatorioObjetivos ?, ?"
             self.conexao = ConexaoBD.conectar(self)
             tipo = 1
-            resultado = self.conexao.execute(self.comando, tipo, "", "", "", "")
+            resultado = self.conexao.execute(self.comando, tipo, "")
 
             if resultado.description != None:
                 message = self.conexao.fetchone()[0]
@@ -41,14 +41,12 @@ class EmitirPDF:
             self.conexao.close()
 
         elif self.escolha.get() == 'Op2':
-            texto = Paragraph("Relatório que contém as cobranças pelo produto.",
+            texto = Paragraph("Relatório que contém todas os obejtivos finalizados.",
                               estilo_texto)
-            self.comando = "pRelatorioCobrancas ?, ?, ?, ?, ?"
+            self.comando = "pRelatorioObjetivos ?, ?"
             self.conexao = ConexaoBD.conectar(self)
             tipo = 2
-            indice_prod = self.cbProduto.get()
-            id = int(indice_prod.split()[0])
-            resultado = self.conexao.execute(self.comando, tipo, "", "", id, "")
+            resultado = self.conexao.execute(self.comando, tipo, "")
 
             if resultado.description != None:
                 message = self.conexao.fetchone()[0]
@@ -63,14 +61,12 @@ class EmitirPDF:
 
         elif self.escolha.get() == 'Op3':
             texto = Paragraph(
-                "Relatório que contém as cobranças pelo tipo de produto.",
+                "Relatório que contém todas os obejtivos ativos.",
                 estilo_texto)
-            self.comando = "pRelatorioCobrancas ?, ?, ?, ?, ?"
+            self.comando = "pRelatorioObjetivos ?, ?"
             self.conexao = ConexaoBD.conectar(self)
             tipo = 3
-            indice_conta = self.cbConta.get()
-            id = int(indice_conta.split()[0])
-            resultado = self.conexao.execute(self.comando, tipo, "", "", "", id)
+            resultado = self.conexao.execute(self.comando, tipo, "")
 
             if resultado.description != None:
                 message = self.conexao.fetchone()[0]
@@ -85,14 +81,14 @@ class EmitirPDF:
 
         elif self.escolha.get() == 'Op4':
             texto = Paragraph(
-                "Relatório que contém todas as cobranças por período.",
+                "Relatório que contém todas os obejtivos pelo tipo informado.",
                 estilo_texto)
-            self.comando = "pRelatorioCobrancas ?, ?, ?, ?, ?"
+            self.comando = "pRelatorioObjetivos ?, ?"
             self.conexao = ConexaoBD.conectar(self)
             tipo = 4
-            dt_inicio = self.data1.get()
-            dt_fim = self.data2.get()
-            resultado = self.conexao.execute(self.comando, tipo, dt_inicio, dt_fim, "", "")
+            indice_conta = self.cbConta.get()
+            id = int(indice_conta.split()[0])
+            resultado = self.conexao.execute(self.comando, tipo, id)
 
             if resultado.description != None:
                 message = self.conexao.fetchone()[0]
@@ -109,7 +105,7 @@ class EmitirPDF:
         elementos = []
 
         #Adicionar o título
-        titulo = Paragraph("Relatório de Cobranças", estilo_titulo)
+        titulo = Paragraph("Relatório objetivos a serem concluidos", estilo_titulo)
         elementos.append(titulo)
 
         elementos.append(texto)
@@ -128,9 +124,8 @@ class EmitirPDF:
                                     ('BACKGROUND', (0, 1), (-1, -1), colors.beige),
                                     ('GRID', (0, 0), (-1, -1), 1, colors.black)])
         tabela.setStyle(estilo_tabela)
-        elementos.append(tabela)
 
-        # Construir o documento PDF
+        elementos.append(tabela)
         doc.build(elementos)
 
     def carregarComboConta(self):
@@ -139,13 +134,5 @@ class EmitirPDF:
         tipoContas = resultado.fetchall()
         self.conexao.close()
         return [conta[0] for conta in tipoContas]
-
-    def carregarComboProduto(self):
-        self.conexao = ConexaoBD.conectar(self)
-        resultado = self.conexao.execute("Select Concat(produto_id,' - ',nome) From produto_tb")
-        produtos = resultado.fetchall()
-        self.conexao.close()
-        return [produto[0] for produto in produtos]
-
 
 

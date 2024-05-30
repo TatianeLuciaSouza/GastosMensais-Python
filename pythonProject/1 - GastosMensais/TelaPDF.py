@@ -6,14 +6,11 @@ from GerarPDF import EmitirPDF
 from tkcalendar import DateEntry
 from datetime import date
 
-janelaPDF = Tk()
-janelaPDF.iconify()
-
 
 class TelaPDF(EmitirPDF):
     def __init__(self, root):
         self.root = root
-        self.janela = janelaPDF
+        self.janela = Tk()
         self.tela()
         self.frameRelat()
         self.atualizar_tela()
@@ -95,7 +92,7 @@ class TelaPDF(EmitirPDF):
         self.emitir.place(relx=0.15, rely=0.85, relwidth=0.30, relheight=0.10)
 
         self.voltar = Button(self.framepdf, text="Voltar", bd=2, bg='#E6E6FA', font=('verdana', 8, 'bold'),
-                             command=self.voltarTelaPrincipal)
+                             command=self.janela.destroy)
         self.voltar.place(relx=0.50, rely=0.85, relwidth=0.30, relheight=0.10)
 
     def atualizar_tela(self):

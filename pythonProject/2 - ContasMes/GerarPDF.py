@@ -1,8 +1,10 @@
+from tkinter import messagebox
+
 from reportlab.lib.pagesizes import letter
 from reportlab.lib import colors
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Table, TableStyle, Spacer
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
-from SQLServer import ConexaoBD
+from Conexao import ConexaoBD
 
 class EmitirPDF:
     def criar_pdf(self, caminho):
@@ -26,6 +28,13 @@ class EmitirPDF:
             self.conexao = ConexaoBD.conectar(self)
             tipo = 1
             resultado = self.conexao.execute(self.comando, tipo, "", "", "")
+
+            if resultado.description != None:
+                message = self.conexao.fetchone()[0]
+                messagebox.showerror("Erro", message)
+                self.conexao.close()
+                return
+
             colunas = [column[0] for column in resultado.description]
             dados = [colunas] + [list(row) for row in resultado]
             tabela = Table(dados, colWidths=[85, 100, 85])
@@ -38,6 +47,13 @@ class EmitirPDF:
             self.conexao = ConexaoBD.conectar(self)
             tipo = 2
             resultado = self.conexao.execute(self.comando, tipo, "", "", "")
+
+            if resultado.description != None:
+                message = self.conexao.fetchone()[0]
+                messagebox.showerror("Erro", message)
+                self.conexao.close()
+                return
+
             colunas = [column[0] for column in resultado.description]
             dados = [colunas] + [list(row) for row in resultado]
             tabela = Table(dados, colWidths=[85, 100, 85])
@@ -53,6 +69,13 @@ class EmitirPDF:
             indice_conta = self.cbConta.get()
             id = int(indice_conta.split()[0])
             resultado = self.conexao.execute(self.comando, tipo, "", "", id)
+
+            if resultado.description != None:
+                message = self.conexao.fetchone()[0]
+                messagebox.showerror("Erro", message)
+                self.conexao.close()
+                return
+
             colunas = [column[0] for column in resultado.description]
             dados = [colunas] + [list(row) for row in resultado]
             tabela = Table(dados, colWidths=[85, 100, 85])
@@ -68,6 +91,13 @@ class EmitirPDF:
             dt_inicio = self.data1.get()
             dt_fim = self.data2.get()
             resultado = self.conexao.execute(self.comando, tipo, dt_inicio, dt_fim, "")
+
+            if resultado.description != None:
+                message = self.conexao.fetchone()[0]
+                messagebox.showerror("Erro", message)
+                self.conexao.close()
+                return
+
             colunas = [column[0] for column in resultado.description]
             dados = [colunas] + [list(row) for row in resultado]
             tabela = Table(dados, colWidths=[85, 100, 85])

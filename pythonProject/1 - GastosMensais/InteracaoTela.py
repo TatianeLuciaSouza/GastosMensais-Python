@@ -1,5 +1,5 @@
 import datetime
-from SQLServer import ConexaoBD
+from Conexao import ConexaoBD
 from tkinter import ttk
 from tkinter import *
 from tkinter import messagebox
@@ -8,7 +8,7 @@ class Interagir:
     def carregarData(self):
         self.conexao = ConexaoBD.conectar(self)
         resultado = self.conexao.execute("Select Distinct Concat(Year(dt_inclusao), "
-                                         "Case When Len(Month(dt_inclusao)) = 1 Then '-0' End, "
+                                         "Case When Len(Month(dt_inclusao)) = 1 Then '0' End, "
                                          "Month(dt_inclusao)) "
                                          "From gastos_tb")
         datas = resultado.fetchall()
@@ -85,7 +85,34 @@ class Interagir:
         qtd = self.txtQtd.get()
         tipo = self.cbTpProduto.get()
 
-        self.conexao.execute(self.comando, str(produto), valor, int(qtd), str(loja), str(tipo))
+        if not produto:
+            messagebox.showinfo("Erro", "O campo do produto está vazio! Favor preencher.")
+            return
+
+        if not tipo:
+            messagebox.showinfo("Erro", "O campo tipo do produto está vazio! Favor preencher.")
+            return
+
+        if not loja:
+            messagebox.showinfo("Erro", "O campo da loja está vazio! Favor preencher.")
+            return
+
+        if not qtd:
+            messagebox.showinfo("Erro", "O campo quantidade está vazio! Favor preencher.")
+            return
+
+        if not valor:
+            messagebox.showinfo("Erro", "O campo valor está vazio! Favor preencher.")
+            return
+
+        resultado = self.conexao.execute(self.comando, str(produto), valor, int(qtd), str(loja), str(tipo))
+
+        if resultado.description != None:
+            message = self.conexao.fetchone()[0]
+            messagebox.showerror("Erro", message)
+            self.conexao.close()
+            return
+
         self.conexao.commit()
         self.conexao.close()
 
@@ -95,10 +122,10 @@ class Interagir:
         self.txtValor.delete(0, END)
         self.cbTpProduto.delete(0, END)
 
-        # Atualizar o grid
+        #Atualizar o grid
         self.carregarGrid(event=None)
 
-        # Atualizar o combo data
+        #Atualizar o combo data
         datas = self.carregarData()
         self.cbData['values'] = datas
 
