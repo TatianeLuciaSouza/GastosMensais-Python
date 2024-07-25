@@ -1,7 +1,5 @@
 import datetime
 
-import pyodbc
-
 from Conexao import ConexaoBD
 from tkinter import ttk
 from tkinter import *

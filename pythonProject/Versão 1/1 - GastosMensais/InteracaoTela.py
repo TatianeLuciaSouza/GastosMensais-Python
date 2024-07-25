@@ -20,7 +20,7 @@ class Interagir:
         self.conexao = ConexaoBD.conectar(self)
         data_str = self.cbData.get()
         if not data_str:
-            self.compras.delete(*self.compras.get_children())  # Limpa os registros na Treeview
+            self.gastos.delete(*self.gastos.get_children())
             return []
 
         # Verifica se a conexão está aberta
@@ -34,21 +34,20 @@ class Interagir:
                                          "Case When Len(Month(g.dt_inclusao)) = 1 Then '-0' End, "
                                          "Month(g.dt_inclusao)) = '" + data_str + "'")
         registros = resultado.fetchall()
-        self.compras.delete(*self.compras.get_children())  # Limpa os registros na Treeview
+        self.gastos.delete(*self.gastos.get_children())  #
         for registro in registros:
-            # Obtém os valores do registro
             gastoID, nome, qtd, valor, nomeLoja, dt_inclusao = registro
 
-            # Formata os valores conforme necessário
+            #Formata os valores conforme necessário
             gasto_ID = f'{gastoID:5}'
             produto_formatado = f'{nome:10}'
             qtd_formatado = f'{qtd:10}'
-            valor_formatado = f'R$ {valor:.2f}'  # Exemplo: R$ 10.50
+            valor_formatado = f'R$ {valor:.2f}'
             loja_formatada = f'{nomeLoja:10}'
-            data_formatada = dt_inclusao.strftime('%d/%m/%Y')  # Exemplo: 31/12/2023
+            data_formatada = dt_inclusao.strftime('%d/%m/%Y')
 
-            # Insere o registro formatado na Treeview
-            self.compras.insert("", "end", values=(gasto_ID,produto_formatado, qtd_formatado, valor_formatado, loja_formatada,
+            #Insere o registro formatado na Treeview
+            self.gastos.insert("", "end", values=(gasto_ID,produto_formatado, qtd_formatado, valor_formatado, loja_formatada,
                                                    data_formatada))
 
 
