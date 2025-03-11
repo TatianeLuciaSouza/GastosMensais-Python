@@ -21,3 +21,4 @@ Na segunda versão, todos os projetos que anteriormente estavam separados agora 
 
 ### *Versão 3*: Implementação Web
 A terceira versão representa uma evolução significativa da versão 2, onde toda a funcionalidade é disponibilizada via web. Essa transição para uma plataforma web traz muitos ajustes tanto no front-end quanto no back-end, melhorando a experiência do usuário e a eficiência do sistema. A interface se torna mais acessível, e as operações são otimizadas para um ambiente online.
+(A parte de recuperar senha não funciona, pois da forma que gostaria de fazer, só encontrei API que tivesse que pagar.)
