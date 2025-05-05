@@ -1,0 +1,30 @@
+.inputDtFim{
+    top: -4.8em;
+    left: 14.5rem;
+    width: 5rem;
+}
+
+.inputInicio {
+    left: 6.2rem;
+    width: 5rem;
+}
+
+.labelRelat {
+    top: -1rem;
+}
+
+.labelInicio {
+    left: 6rem;
+}
+
+.ComboRelat {
+    position: relative;
+    top: -1rem;
+    width: 15rem;
+}
+
+.radio {
+    Top: -1rem;
+    color: black;
+    font-weight: bold;
+}

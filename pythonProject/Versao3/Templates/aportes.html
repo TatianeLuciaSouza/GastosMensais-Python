@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/global.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/acorden.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/aportes.css') }}">
+    <title>Gastos Mensais</title>
+</head>
+<body>
+    <div class="header" id="header">
+        <div class="navegacao">
+            <div class="acordeon">
+                <button class="trigger" type="button">
+                    <a href="/menu">Menu</a>
+                </button>
+            </div>
+            <div class="acordeon">
+                <button class="trigger" type="button">
+                     <a href="/gastos">Gastos</a>
+                </button>
+            </div>
+            <div class="acordeon">
+                <button class="trigger" type="button">
+                    <a href="/contas">Contas</a>
+                </button>
+            </div>
+            <div class="acordeon">
+                <button class="trigger" type="button">
+                    <a href="/metas">Metas</a>
+                </button>
+            </div>
+            <div class="acordeon">
+                <button class="trigger" type="button">
+                     <a href="#">Aportes</a>
+                </button>
+            </div>
+            <div class="acordeon">
+                <button class="trigger" type="button">
+                    <a href="/decimo">Décimo Terceiro</a>
+                </button>
+            </div>
+            <div class="acordeon">
+                <button class="trigger" type="button">
+                    <a href="/relatorio">Relatórios</a>
+                </button>
+            </div>
+             <div class="acordeon">
+                <div class="dropdown">
+                    <div class="trigger">
+                        <button class="btnHeader" type="button">Perfil</button>
+                    </div>
+                    <div class="dropdown-content">
+                        <a href="/pSalario">Salario</a>
+                        <div class="submenu">
+                            <a href="#">Alterar ou Encerrar</a>
+                            <div class="submenu-content">
+                                <a href="/pContas">Contas</a>
+                                <a href="/pMetas">Metas</a>
+                                <a href="/pAportes">Aportes</a>
+                                <a href="/pDecimo13">Decimo 13</a>
+                            </div>
+                        </div>
+                        <a href="/">Sair</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+     <form action="{{ url_for('aportes') }}"  method="GET">
+        <div tabindex="0" class="conteudo" id="conteudo">
+            <h1> {{ user_name }} , confira seus fundos de investimento! </h1>
+        </div>
+         <div class="container">
+             <div class="campos">
+                 <h2>Incluir novos Aportes</h2>
+                 <label for="op" class="label">Qual investimento a ser aportado:</label>
+                 <div class="radio">
+                     <form>
+                         <label>
+                            <input type="radio" name="opcao" value="F">
+                                FIIS
+                        </label>
+                        <label class="label-radio">
+                            <input type="radio" name="opcao" value="A">
+                                Ações
+                        </label><br>
+                    </form>
+                 </div>
+
+                 <br>
+
+                 <label for="ticker" class="label">Ticker:</label>
+                 <select id="cbTicker" class="combo combo3" name="cbTicker">
+                     <option value="cbTicker">Selecione</option>
+                         {% if combo %}
+                            {% for item in combo %}
+                                <option value="{{ item }}">{{ item }}</option>
+                            {% endfor %}
+                         {% else %}
+                            <option value="">Nenhum tipo disponível</option>
+                         {% endif %}
+                 </select>
+
+                 <label for="qtd" class="label labelQtd">Quantidade:</label>
+                 <input type="text" class="input inputAporte" id="qtd">
+
+                 <label for="vlAporte" class="label labelValor">Valor:</label>
+                 <input type="text" class="input inputAporte2" id="vlAporte">
+
+                 <label for="vlRendimento" class="label labelRed">Rendimento:</label>
+                 <input type="text" class="input inputAporte3" id="vlRendimento">
+
+                 <input type="button" class="btn" value="Adicionar" id="btIncluirFundo">
+            </div>
+
+            <div>
+                <div class="radio-status">
+                    <label class="radio-ops">
+                        <input type="radio" name="fundo" value="F"> FIIS
+                    </label>
+                    <label class="radio-ops">
+                        <input type="radio" name="fundo" value="A"> Ações
+                    </label>
+                </div>
+                <table  class="caixa" id="tbFundos">
+                    <thead>
+                        <tr>
+                            <th>Empresa</th>
+                            <th>Tipo do Fundo</th>
+                            <th>Ticker</th>
+                            <th>Total Investido</th>
+                            <th>Total Rendimento</th>
+                        </tr>
+                     </thead>
+                     <tbody id="FundoBody">
+                         {% if dadoGrid and dadoGrid|length > 0 %}
+                         {% for item in dadoGrid %}
+                        <tr>
+                            <td>{{ item.nm_empressa }}</td>
+                            <td>{{ item.tipo_fundo }}</td>
+                            <td>{{ item.ticker }}</td>
+                            <td>{{ item.vl_investido }}</td>
+                            <td>{{ item.vl_rendimento }}</td>
+                        </tr>
+                        {% endfor %}
+                        {% else %}
+                        <tr>
+                             <td colspan="6" style="text-align:center;">Nenhuma meta encontrada.</td>
+                        </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+                 <p class="paragrafo-centralizado"> Para alterar ou excluir os aportes deste mês, <a href="/pAportes"> clique aqui</a>.</p>
+            </div>
+         </div>
+     </form>
+</body>
+
+<script src="static/js/fundos.js"></script>
+
+<footer>
+    <div class="footer">
+        <h4> Administre seu Salário conosco, Manage Your Money.</h4>
+        <p>&copy; 2023 - Todos os direitos reservados</p>
+    </div>
+</footer>
+</html>

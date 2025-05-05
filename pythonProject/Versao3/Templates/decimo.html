@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/global.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/acorden.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/decimo.css') }}">
+    <title>Gastos Mensais</title>
+</head>
+<body>
+    <div class="header" id="header">
+        <div class="navegacao">
+            <div class="acordeon">
+                <button class="trigger" type="button">
+                    <a href="/menu">Menu</a>
+                </button>
+            </div>
+            <div class="acordeon">
+                <button class="trigger" type="button">
+                     <a href="/gastos">Gastos</a>
+                </button>
+            </div>
+            <div class="acordeon">
+                <button class="trigger" type="button">
+                    <a href="/contas">Contas</a>
+                </button>
+            </div>
+            <div class="acordeon">
+                <button class="trigger" type="button">
+                    <a href="/metas">Metas</a>
+                </button>
+            </div>
+            <div class="acordeon">
+                <button class="trigger" type="button">
+                     <a href="/aportes">Aportes</a>
+                </button>
+            </div>
+            <div class="acordeon">
+                <button class="trigger" type="button">
+                    <a href="#">Décimo Terceiro</a>
+                </button>
+            </div>
+            <div class="acordeon">
+                <button class="trigger" type="button">
+                    <a href="/relatorio">Relatórios</a>
+                </button>
+            </div>
+              <div class="acordeon">
+                <div class="dropdown">
+                    <div class="trigger">
+                        <button class="btnHeader" type="button">Perfil</button>
+                    </div>
+                    <div class="dropdown-content">
+                        <a href="/pSalario">Salario</a>
+                        <div class="submenu">
+                            <a href="#">Alterar ou Encerrar</a>
+                            <div class="submenu-content">
+                                <a href="/pContas">Contas</a>
+                                <a href="/pMetas">Metas</a>
+                                <a href="/pAportes">Aportes</a>
+                                <a href="/pDecimo13">Decimo 13</a>
+                            </div>
+                        </div>
+                        <a href="/">Sair</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+     <form action="{{ url_for('decimo') }}"  method="GET">
+        <div tabindex="0" class="conteudo" id="conteudo">
+            <h1 id="titulo"> {{ user_name }} ,seu saldo do Décimo Terceiro é, {{ valor13 }} </h1>
+        </div>
+         <div class="container">
+             <div class="campos">
+                 <h2>Incluir Compra</h2>
+
+                <label for="produto13" class="label">Nome Produto:</label>
+                 <input list="13Produtos" id="cbProduto13" class="combo combo2" name="cbProdutos13" placeholder="Digite ou selecione um produto">
+                 <datalist id="13Produtos">
+                    {% if cbProduto13 %}
+                        {% for item in cbProduto13 %}
+                            <option value="{{ item }}">{{ item }}</option>
+                        {% endfor %}
+                     {% else %}
+                        <option value="">Nenhum tipo disponível</option>
+                     {% endif %}
+                </datalist>
+
+                 <label for="tpProduto13" class="label label1">Tipo do Produto:</label>
+                 <select id="cbTpProduto13" class="combo combo1" name="cbTpProdutos13">
+                     <option value="opcao">Selecione uma opção</option>
+                     {% if cbTpProduto13 %}
+                        {% for item in cbTpProduto13 %}
+                            <option value="{{ item }}">{{ item }}</option>
+                        {% endfor %}
+                     {% else %}
+                        <option value="">Nenhum tipo disponível</option>
+                     {% endif %}
+                 </select>
+
+                 <label for="local13" class="label">Onde comprou:</label>
+                 <input list="13loja" id="cbLocal13" class="combo combo2" name="cbLocal13" placeholder="Digite ou selecione a loja">
+                 <datalist id="13loja">
+                    {% if cbLocal13 %}
+                        {% for item in cbLocal13 %}
+                            <option value="{{ item }}">{{ item }}</option>
+                        {% endfor %}
+                     {% else %}
+                        <option value="">Nenhum tipo disponível</option>
+                     {% endif %}
+                </datalist>
+
+                 <label for="tplocal13" class="label label1">Tipo da localização:</label>
+                 <select id="cbTpLocal13" class="combo combo1" name="cbTpLocal13" >
+                     <option value="opcao">Selecione uma opção</option>
+                     <option value="lojaFisica">Loja Física</option>
+                     <option value="lojaVirtual">Loja Virtual</option>
+                 </select>
+
+                 <label for="valor13" class="label">Valor da Compra:</label>
+                 <input type="text" class="input input2" id="valor13">
+
+                 <label for="qtd" class="label label1">Quantidade Compra:</label>
+                 <input type="text" class="input input13" id="qtd">
+
+                 <label for="desc" class="label labelDesc">Descrição:</label>
+                 <input type="text" class="input inputDesc" id="desc">
+
+                 <input type="button" class="btn" value="Adicionar" id="btIncluir">
+            </div>
+
+             <div>
+                <table  class="caixa" id="tbDecimo">
+                    <thead>
+                        <tr>
+                            <th>Produto</th>
+                            <th>Descrição da Compra</th>
+                            <th>Loja</th>
+                            <th>Valor</th>
+                            <th>Data da Compra</th>
+                            <th>Excluir</th>
+                            <th style="display: none;">ID</th> <!-- Coluna escondida -->
+                        </tr>
+                     </thead>
+                     <tbody id="decimoBody">
+                         {% if dadoGrid and dadoGrid|length > 0 %}
+                         {% for item in dadoGrid %}
+                        <tr>
+                            <td>{{ item.produto }}</td>
+                            <td>{{ item.descricao }}</td>
+                            <td>{{ item.loja }}</td>
+                            <td>{{ item.valor }}</td>
+                            <td>{{ item.dt_inclusao }}</td>
+                            <td><input type="checkbox" id="ckExcluir" value="{{ item.ID }}"></td>
+                            <td style="display: none;">{{ item.ID }}</td> <!-- ID do item -->
+                        </tr>
+                        {% endfor %}
+                        {% else %}
+                        <tr>
+                             <td colspan="6" style="text-align:center;">Nenhuma meta encontrada.</td>
+                        </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+                <input type="button" class="btn excluir" value="Excluir Selecionados" id="btnExcluir">
+                 <p class="paragrafo-centralizado"> Incluir ou alterar décimo 13, <a href="/pDecimo13"> clique aqui</a>.</p>
+            </div>
+         </div>
+     </form>
+</body>
+
+<script src="static/js/decimo.js"></script>
+
+<footer>
+    <div class="footer">
+        <h4> Administre seu Salário conosco, Manage Your Money.</h4>
+        <p>&copy; 2023 - Todos os direitos reservados</p>
+    </div>
+</footer>
+</html>

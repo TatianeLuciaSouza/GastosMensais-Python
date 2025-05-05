@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/global.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/acorden.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/GlobalEditavel.css') }}">
+    <title>Metas</title>
+</head>
+<body>
+    <div class="header" id="header">
+        <div class="navegacao">
+            <div class="logo">
+                <a href="/"><img src="static/Imagens/logo.png" alt="Logo"></a>
+            </div>
+            <div class="acordeon">
+                <button class="trigger" type="button">
+                    <a href="/menu">Menu</a>
+                </button>
+            </div>
+            <div class="acordeon">
+                <button class="trigger" type="button">
+                     <a href="/gastos">Gastos</a>
+                </button>
+            </div>
+            <div class="acordeon">
+                <button class="trigger" type="button">
+                    <a href="/contas">Contas</a>
+                </button>
+            </div>
+            <div class="acordeon">
+                <button class="trigger" type="button">
+                    <a href="/metas">Metas</a>
+                </button>
+            </div>
+            <div class="acordeon">
+                <button class="trigger" type="button">
+                     <a href="/aportes">Aportes</a>
+                </button>
+            </div>
+            <div class="acordeon">
+                <button class="trigger" type="button">
+                    <a href="/decimo">Décimo Terceiro</a>
+                </button>
+            </div>
+            <div class="acordeon">
+                <button class="trigger" type="button">
+                    <a href="/relatorio">Relatórios</a>
+                </button>
+            </div>
+            <div class="acordeon">
+                <div class="dropdown">
+                    <div class="trigger">
+                        <button class="btnHeader" type="button">Perfil</button>
+                    </div>
+                    <div<a href="/pSalario">Salario</a>
+                        <div class="submenu">
+                            <a href="#">Alterar ou Encerrar</a>
+                            <div class="submenu-content">
+                                <a href="/pContas">Contas</a>
+                                <a href="/pMetas">Metas</a>
+                                <a href="#">Aportes</a>
+                                <a href="/pDecimo13">Decimo 13</a>
+                            </div>
+                        </div>
+                        <a href="/">Sair</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+     <form action="{{ url_for('perfilAportes') }}"  method="GET">
+        <div tabindex="0" class="conteudo" id="conteudo">
+            <h1> Alterar ou Vender FIIs e Ações, {{ user_name }} </h1>
+        </div>
+        <h2>Grid editável apenas nas colunas de verde</h2>
+         <div class="radio">
+             <form>
+                 <label>
+                     <input type="radio" name="opcao" value="F">
+                     FIIS
+                 </label>
+                 <label class="label-radio">
+                     <input type="radio" name="opcao" value="A">
+                     Ações
+                 </label><br>
+             </form>
+         </div>
+        <table id="dataGrid">
+            <thead>
+                <tr>
+                    <th style="display: none;">ID</th> <!-- Coluna escondida -->
+                    <th>Empresa</th>
+                    <th>Tipo do Fundo</th>
+                    <th>Ticker</th>
+                    <th>Total Investido</th>
+                    <th>Quantidade de Cotas</th>
+                    <th>Valor da Cota</th>
+                    <th>Valor Total</th>
+                    <th>Valor do Rendimento</th>
+                    <th>Selecionar</th>
+                </tr>
+            </thead>
+            <tbody id="pAportesBody">
+                {% if dadoGrid %}
+                {% for item in dadoGrid %}
+                <tr>
+                    <td style="display: none;">{{ item.ID }}</td>
+                    <td>{{ item.nm_empressa }}</td>
+                    <td>{{ item.tipo_fundo }}</td>
+                    <td>{{ item.ticker }}</td>
+                    <td>{{ item.vl_investido }}</td>
+                    <td class="editable alt">{{ item.qtd }}</td>
+                    <td class="editable alt">{{ item.vl_cota }}</td>
+                    <td>{{ item.vl_total }}</td>
+                    <td class="editable alt">{{ item.vl_rendimento }}</td>
+                    <td><input type="checkbox" id="ckSelecionar" value="{{ item.ID }}"></td>
+                </tr>
+                {% endfor %}
+                {% else %}
+                <tr>
+                    <td colspan="5">Nenhum aporte realizado este mês.</td>
+                </tr>
+                {% endif %}
+            </tbody>
+        </table>
+         <input type="button" class="btn excluirSelecionas" value="Vender Selecionados" id="btnExcluir">
+     </form>
+</body>
+
+<script src="static/js/Perfil/aportes.js"></script>
+
+<footer>
+    <div class="footer">
+        <h4> Administre seu Salário conosco, Manage Your Money.</h4>
+        <p>&copy; 2023 - Todos os direitos reservados</p>
+    </div>
+</footer>
+</html>

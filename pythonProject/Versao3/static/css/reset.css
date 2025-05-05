@@ -1,0 +1,12 @@
+* {
+  padding: 0;
+  margin: 0;
+  vertical-align: baseline;
+  list-style: none;
+}
+
+html, body {
+    height: 100%; /* Para ocupar toda a altura da tela */
+    width: 100%; /* Para ocupar toda a largura da tela */
+    /*overflow: hidden; /* Para esconder as barras de rolagem */
+}

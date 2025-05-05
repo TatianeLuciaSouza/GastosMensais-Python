@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>Recuperar Senha</title>
+</head>
+<body>
+    <div class="form">
+      <div class="tab-content">
+        <div id="signup">
+          <h1>Recuperar Senha</h1>
+           <form action="/" method="post">
+                <p> Insira o e-mail de recuperação de senha </p>
+                <div class="field-wrap">
+                    <input type="email" name="email" required autocomplete="on" onfocus="hideLabel(this)" onblur="showLabel(this)" id="email" placeholder="seu@email.com"/>
+                </div>
+
+                 <div class="field-wrap">
+                    <input type="text" name="codigo" required autocomplete="off" onfocus="hideLabel(this)" onblur="showLabel(this)" id="codigo" disabled placeholder="Digite o Código"/>
+                 </div>
+
+                <ul class="tab-group">
+                    <li class="tab active"><a onclick="ativar()" id="EnviaCodigo">Enviar Código</a></li>
+                    <li class="tab active"><a href="#login" id="recuperate" disabled>Recuperar</a></li>
+                </ul>
+          </form>
+        </div>
+        <div id="login">
+            <h1>Recuperar Senha</h1>
+            <form action="/" method="post">
+                <div class="field-wrap">
+                  <label>Senha<span class="req">*</span></label>
+                  <input type="password"required autocomplete="off" onfocus="hideLabel(this)" onblur="showLabel(this)"/>
+                </div>
+
+                <div class="field-wrap">
+                    <label>Repita Senha<span class="req">*</span></label>
+                    <input type="password"required autocomplete="off" onfocus="hideLabel(this)" onblur="showLabel(this)" required/>
+                </div>
+                <button class="button button-block"/>Alterar</button>
+            </form>
+        </div>
+      </div><!-- tab-content -->
+    </div> <!-- /form -->
+</body>
+<script src="static/js/esqueciSenha.js"></script>
+</html>

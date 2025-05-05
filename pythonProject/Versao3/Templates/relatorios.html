@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/global.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/acorden.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/aportes.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/relatorio.css') }}">
+    <title>Gastos Mensais</title>
+</head>
+<body>
+    <div class="header" id="header">
+        <div class="navegacao">
+            <div class="acordeon">
+                <button class="trigger" type="button">
+                    <a href="/menu">Menu</a>
+                </button>
+            </div>
+            <div class="acordeon">
+                <button class="trigger" type="button">
+                     <a href="/gastos">Gastos</a>
+                </button>
+            </div>
+            <div class="acordeon">
+                <button class="trigger" type="button">
+                    <a href="/contas">Contas</a>
+                </button>
+            </div>
+            <div class="acordeon">
+                <button class="trigger" type="button">
+                    <a href="/metas">Metas</a>
+                </button>
+            </div>
+            <div class="acordeon">
+                <button class="trigger" type="button">
+                     <a href="/aportes">Aportes</a>
+                </button>
+            </div>
+            <div class="acordeon">
+                <button class="trigger" type="button">
+                    <a href="/decimo">Décimo Terceiro</a>
+                </button>
+            </div>
+            <div class="acordeon">
+                <button class="trigger" type="button">
+                    <a href="#">Relatórios</a>
+                </button>
+            </div>
+            <div class="acordeon">
+                <div class="dropdown">
+                    <div class="trigger">
+                        <button class="btnHeader" type="button">Perfil</button>
+                    </div>
+                    <div class="dropdown-content">
+                        <a href="/pSalario">Salario</a>
+                        <div class="submenu">
+                            <a href="#">Alterar ou Encerrar</a>
+                            <div class="submenu-content">
+                                <a href="/pContas">Contas</a>
+                                <a href="/pMetas">Metas</a>
+                                <a href="/pAportes">Aportes</a>
+                                <a href="/pDecimo13">Decimo 13</a>
+                            </div>
+                        </div>
+                        <a href="/">Sair</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+     <form action="{{ url_for('aportes') }}"  method="GET">
+        <div tabindex="0" class="conteudo" id="conteudo">
+            <h1> Gerar Relatórios </h1>
+        </div>
+         <div class="container">
+             <div class="campos">
+                 <label for="relatorios" class="label labelRelat">Tipo de Relatório:</label>
+                 <select id="cbRelatorio" class="combo ComboRelat" name="cbRelatorios">
+                     <option value="opcao">Selecione uma opção</option>
+                     <option value="rGastos">Gasto Mensal</option>
+                     <option value="rContas">Contas</option>
+                     <option value="rMetas">Metas</option>
+                     <option value="rAportes">Aportes</option>
+                     <option value="rGastos13">Gastos Décimo Terceiro</option>
+                     <option value="rDecimo13">Décimo Terceiro</option>
+                 </select>
+
+                 <form>
+                     <label class="radio">
+                         <input type="radio" name="opcao" value="ativado" disabled>
+                         Ativo
+                     </label>
+                     <label class="radio">
+                         <input type="radio" id="opcao1" name="opcao" value="esativado" disabled>
+                         Finalizado
+                     </label><br>
+                 </form>
+
+                 <label id="produto" for="produto" class="label">Nome Produto:</label>
+                 <select id="cbProduto" class="combo combo2" name="cbProdutos" disabled></select>
+
+                 <label id="tpProduto" for="tpProduto" class="label label1">Tipo do Produto:</label>
+                 <select id="cbTpProduto" class="combo combo1" name="cbTpProdutos" disabled></select>
+
+                 <label for="local13" class="label">Loja:</label>
+                 <select id="cbLocal13" class="combo combo2" name="cbLocal13" disabled></select>
+
+                 <label for="tplocal13" class="label label1">Tipo :</label>
+                 <select id="cbTpLocal13" class="combo combo1" name="cbTpLocal13" disabled>
+                     <option value="opcao">Selecione uma opção</option>
+                     <option value="lojaFisica">Loja Física</option>
+                     <option value="lojaVirtual">Loja Virtual</option>
+                 </select>
+
+                 <label for="dataInicio" class="label labelInicio">Data Início:</label>
+                 <input type="text" class="input inputInicio" id="dataInicio" disabled>
+
+                 <label for="dataFim" class="label label1">Data Fim:</label>
+                 <input type="text" class="input inputDtFim" id="dataFim" disabled>
+
+                 <input disabled type="button" class="btn" value="Gerar" id="btnGerar">
+            </div>
+         </div>
+     </form>
+</body>
+
+<script src="static/js/relatorios.js"></script>
+
+<footer>
+    <div class="footer">
+        <h4> Administre seu Salário conosco, Manage Your Money.</h4>
+        <p>&copy; 2023 - Todos os direitos reservados</p>
+    </div>
+</footer>
+</html>

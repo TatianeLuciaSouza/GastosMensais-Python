@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/global.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/acorden.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/contas.css') }}">
+    <title>Gastos Mensais</title>
+</head>
+<body>
+    <div class="header" id="header">
+        <div class="navegacao">
+            <div class="acordeon">
+                <button class="trigger" type="button">
+                    <a href="/menu">Menu</a>
+                </button>
+            </div>
+            <div class="acordeon">
+                <button class="trigger" type="button">
+                     <a href="/gastos">Gastos</a>
+                </button>
+            </div>
+            <div class="acordeon">
+                <button class="trigger" type="button">
+                    <a href="#">Contas</a>
+                </button>
+            </div>
+            <div class="acordeon">
+                <button class="trigger" type="button">
+                    <a href="/metas">Metas</a>
+                </button>
+            </div>
+            <div class="acordeon">
+                <button class="trigger" type="button">
+                     <a href="/aportes">Aportes</a>
+                </button>
+            </div>
+            <div class="acordeon">
+                <button class="trigger" type="button">
+                    <a href="/decimo">Décimo Terceiro</a>
+                </button>
+            </div>
+            <div class="acordeon">
+                <button class="trigger" type="button">
+                    <a href="/relatorio">Relatórios</a>
+                </button>
+            </div>
+              <div class="acordeon">
+                <div class="dropdown">
+                    <div class="trigger">
+                        <button class="btnHeader" type="button">Perfil</button>
+                    </div>
+                    <div class="dropdown-content">
+                        <a href="/pSalario">Salario</a>
+                        <div class="submenu">
+                            <a href="#">Alterar ou Encerrar</a>
+                            <div class="submenu-content">
+                                <a href="/pContas">Contas</a>
+                                <a href="/pMetas">Metas</a>
+                                <a href="/pAportes">Aportes</a>
+                                <a href="/pDecimo13">Decimo 13</a>
+                            </div>
+                        </div>
+                        <a href="/">Sair</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+     <form action="{{ url_for('contas') }}"  method="GET">
+        <div tabindex="0" class="conteudo" id="conteudo">
+            <h1> {{ user_name }} , confira suas contas deste mês! </h1>
+        </div>
+         <div class="container">
+             <div class="campos">
+                 <h2>Incluir nova Conta</h2>
+                 <label for="conta" class="label">Conta:</label>
+                  <input list="cbConta" id="cbContas" class="combo combo2" name="cbConta" placeholder="Digite ou selecione a conta">
+                 <datalist id="cbConta">
+                    {% if comboConta %}
+                        {% for item in comboConta %}
+                            <option value="{{ item }}">{{ item }}</option>
+                        {% endfor %}
+                     {% else %}
+                        <option value="">Nenhum tipo disponível</option>
+                     {% endif %}
+                </datalist>
+
+                 <label for="tpConta" class="label label1">Tipo de Conta:</label>
+                 <select id="cbTpContas" class="combo combo1" name="cbTpContas">
+                    <option value="opcao">Selecione uma opção</option>
+                     {% if combotpConta %}
+                        {% for item in combotpConta %}
+                            <option value="{{ item }}">{{ item }}</option>
+                        {% endfor %}
+                     {% else %}
+                        <option value="">Nenhum tipo disponível</option>
+                     {% endif %}
+                 </select>
+
+                 <label for="descricao" class="label label2">Descrição:</label>
+                 <input type="text" class="input input3" id="desc">
+
+                 <label for="valorConta" class="label">Valor da Conta:</label>
+                 <input type="text" class="input input2" id="valorConta">
+
+                 <label for="parcelas" class="label label1">Parcelas:</label>
+                 <input type="text" class="input input1" id="parcelas">
+
+                 <input type="button" class="btn" value="Adicionar" id="btIncluirConta">
+            </div>
+            <div>
+                <table  class="caixa" id="tbGastos">
+                    <tr>
+                        <th>Contas</th>
+                        <th>Parcela Atual</th>
+                        <th>Valor da Parcela</th>
+                    </tr>
+                     <tbody id="contasBody">
+                        {% if dadoGrid %}
+                        {% for item in dadoGrid %}
+                        <tr>
+                            <td>{{ item.conta }}</td>
+                            <td>{{ item.parcela }}</td>
+                            <td>{{ item.valor }}</td>
+                        </tr>
+                        {% endfor %}
+                        {% else %}
+                        <tr>
+                            <td colspan="5">Nenhuma conta para este mês.</td>
+                        </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+                <p class="paragrafo-centralizado"> Para alterar ou excluir contas, <a href="/pContas"> clique aqui</a>.</p>
+            </div>
+         </div>
+     </form>
+</body>
+
+<script src="static/js/contas.js"></script>
+
+<footer>
+    <div class="footer">
+        <h4> Administre seu Salário conosco, Manage Your Money.</h4>
+        <p>&copy; 2023 - Todos os direitos reservados</p>
+    </div>
+</footer>
+</html>

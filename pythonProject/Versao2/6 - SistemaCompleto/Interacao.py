@@ -1079,7 +1079,7 @@ class Interagir:
 
     def carregarSalario(self):
         conexao = ConexaoBD.conectar(self)
-        comando = ("Select salario, sobra, extra, gastos From salario_tb Where login_id = ?")
+        comando = ("Select salario, sobra, extra, gastos.js From salario_tb Where login_id = ?")
 
         login = self.usuario()
 
@@ -1133,7 +1133,7 @@ class Interagir:
     def carregarMenu(self):
         id = self.usuario()
         comando = ("Select l.nome 'nome', s.salario 'salario', s.sobra 'sobra', "
-                   "s.gastos 'gastos', s.extra 'extra' From login_tb l "
+                   "s.gastos.js 'gastos.js', s.extra 'extra' From login_tb l "
                    "Inner Join salario_tb s On l.login_id = s.login_id "
                    "Inner Join usuario_tb u On l.login_id = u.login_id And u.ativo = 1 "
                    "Where l.login_id = ?")

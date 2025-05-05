@@ -1,0 +1,50 @@
+.radio {
+    color: black;
+    font-weight: bold;
+}
+
+.radio-status {
+    color: black;
+    font-weight: bold;
+    display: flex; /* Usar flexbox para centralizar */
+}
+
+.radio-ops {
+    margin: 1rem 1; /* Espaçamento vertical entre os labels */
+    padding: 0.5rem; /* Padding para aumentar a área clicável */
+}
+
+.label-radio {
+    left: 20px;
+}
+
+.inputAporte {
+    top: 0.5rem;
+    width: 3rem;
+    left: 0.2rem;
+}
+
+.inputAporte2 {
+    top: -2.5rem;
+    width: 5rem;
+    left: 8.2rem;
+}
+
+.inputAporte3 {
+    width: 5rem;
+    left: 0.2rem;
+    top: -2.6rem;
+}
+
+.labelQtd{
+     top: 0.7rem;
+}
+
+.labelValor {
+    top: -2.3rem;
+    left: 8rem;
+}
+
+.labelRed {
+    top: -1.5rem;
+}

@@ -1,0 +1,62 @@
+.radio {
+    color: black;
+    font-weight: bold;
+}
+
+.radio-status {
+    color: black;
+    font-weight: bold;
+    display: flex; /* Usar flexbox para centralizar */
+}
+
+
+.radio-ops {
+    margin: 1rem 1; /* Espaçamento vertical entre os labels */
+    padding: 0.5rem; /* Padding para aumentar a área clicável */
+}
+
+.label-radio {
+    left: 20px;
+}
+
+.labelMeta {
+    left: 0.1rem;
+}
+
+.inputMeta {
+    width: 10rem;
+    left: 0.2rem;
+}
+
+.labelValor {
+    top: -3rem;
+    left: 12rem;
+}
+
+.inputValor {
+    top: -3rem;
+    left: 12.2rem;
+    width: 5rem;
+}
+
+.labelFinal {
+    top: -1.5rem;
+}
+
+.inputFinal {
+    top: -1.5rem;
+    left: 0.1rem;
+    width: 5rem;
+}
+
+.labelMensal {
+    top: -4.5rem;
+    left: 8rem;
+}
+
+.inputMensal {
+    top: -5.5rem;
+    left: 8.2rem;
+    width: 5rem;
+}
+

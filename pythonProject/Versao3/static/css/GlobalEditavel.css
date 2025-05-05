@@ -1,0 +1,109 @@
+/*body {
+    overflow: hidden; /* Remove barras de rolagem */
+
+
+ table {
+    width: 50%;
+    border-collapse: collapse;
+    overflow-y: auto; /* Permite rolagem no corpo da tabela */
+    font: bold 1em 'Century Gothic';
+    margin: auto;
+    color: black; /* ou qualquer outra cor */
+ }
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+th {
+    background-color: #50C878;
+}
+
+h2{
+   margin-top: 3.5rem;
+}
+
+h1{
+   margin-top: 2.5rem;
+}
+
+.editable {
+    background-color: #50C878;
+}
+
+ .excluirSelecionas{
+    margin-top: 1rem;
+    margin-left: 40rem;
+ }
+
+.radio {
+    color: black;
+    font-weight: bold;
+    margin-left: 40rem;
+}
+
+.radio-status {
+    color: black;
+    font-weight: bold;
+}
+
+.radio-ops {
+    margin: 1rem 1; /* Espaçamento vertical entre os labels */
+    padding: 0.5rem; /* Padding para aumentar a área clicável */
+}
+
+.radio-alterar {
+    margin: 1rem 1; /* Espaçamento vertical entre os labels */
+    padding: 0.01rem; /* Padding para aumentar a área clicável */
+}
+
+
+.form-container {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #c7d8d2;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    color: black;
+}
+
+button {
+    margin-top: 10px;
+    padding: 10px 15px;
+    background-color:  #50C878;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+button:hover {
+    background-color: #4CAF50;
+}
+
+.botao {
+    margin-left: 6rem;
+}
+
+footer {
+	margin-top: 22.7rem;
+}
+
+@media only screen and (max-width: 1500px) {
+    footer{
+        margin-top: 21.3rem;
+    }
+    .excluirSelecionas{
+        margin-top: 1rem;
+        margin-left: 47rem;
+    }
+    .radio {
+        margin-left: 18rem;
+    }
+}
+
+

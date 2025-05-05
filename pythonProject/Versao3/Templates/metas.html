@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/global.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/acorden.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/metas.css') }}">
+    <title>Gastos Mensais</title>
+</head>
+<body>
+    <div class="header" id="header">
+        <div class="navegacao">
+            <div class="acordeon">
+                <button class="trigger" type="button">
+                    <a href="/menu">Menu</a>
+                </button>
+            </div>
+            <div class="acordeon">
+                <button class="trigger" type="button">
+                     <a href="/gastos">Gastos</a>
+                </button>
+            </div>
+            <div class="acordeon">
+                <button class="trigger" type="button">
+                    <a href="/contas">Contas</a>
+                </button>
+            </div>
+            <div class="acordeon">
+                <button class="trigger" type="button">
+                    <a href="#">Metas</a>
+                </button>
+            </div>
+            <div class="acordeon">
+                <button class="trigger" type="button">
+                     <a href="/aportes">Aportes</a>
+                </button>
+            </div>
+            <div class="acordeon">
+                <button class="trigger" type="button">
+                    <a href="/decimo">Décimo Terceiro</a>
+                </button>
+            </div>
+            <div class="acordeon">
+                <button class="trigger" type="button">
+                    <a href="/relatorio">Relatórios</a>
+                </button>
+            </div>
+              <div class="acordeon">
+                <div class="dropdown">
+                    <div class="trigger">
+                        <button class="btnHeader" type="button">Perfil</button>
+                    </div>
+                    <div class="dropdown-content">
+                        <a href="/pSalario">Salario</a>
+                        <div class="submenu">
+                            <a href="#">Alterar ou Encerrar</a>
+                            <div class="submenu-content">
+                                <a href="/pContas">Contas</a>
+                                <a href="/pMetas">Metas</a>
+                                <a href="/pAportes">Aportes</a>
+                                <a href="/pDecimo13">Decimo 13</a>
+                            </div>
+                        </div>
+                        <a href="/">Sair</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+     <form action="{{ url_for('metas') }}"  method="GET">
+        <div tabindex="0" class="conteudo" id="conteudo">
+            <h1> {{ user_name }} , confira suas metas! </h1>
+        </div>
+         <div class="container">
+             <div class="campos">
+                 <h2>Incluir nova Meta</h2>
+                 <label for="op" class="label">Como será descontado a meta:</label>
+                 <div class="radio">
+                     <form>
+                         <label>
+                            <input type="radio" name="opcao" value="1">
+                                Manual
+                        </label>
+                        <label class="label-radio">
+                            <input type="radio" name="opcao" value="2">
+                                Automático
+                        </label><br>
+                    </form>
+                 </div>
+
+                 <br>
+
+                 <label for="meta" class="label labelMeta">Meta:</label>
+                 <input type="text" class="input inputMeta" id="meta">
+
+                 <label for="vlInicialMeta" class="label labelValor">Valor Inícial:</label>
+                 <input type="text" class="input inputValor" id="vlInicialMeta">
+
+                 <label for="vlFinalMeta" class="label labelFinal">Valor Final:</label>
+                 <input type="text" class="input inputFinal" id="vlFinalMeta">
+
+                 <label for="vlMensalMeta" class="label labelMensal">Valor Mensal:</label>
+                 <input type="text" class="input inputMensal" id="vlMensalMeta">
+
+                 <input type="button" class="btn" value="Adicionar" id="btIncluirMeta">
+            </div>
+
+            <div>
+                <div class="radio-status">
+                    <label class="radio-ops">
+                        <input type="radio" name="status" value="A" checked> Ativa
+                    </label>
+                    <label class="radio-ops">
+                        <input type="radio" name="status" value="E"> Encerradas
+                    </label>
+                </div>
+                <table  class="caixa" id="tbMetas">
+                    <thead>
+                        <tr>
+                            <th>Meta</th>
+                            <th>Data Início</th>
+                            <th class="data-fim">Data Fim</th>
+                            <th>Valor Atual</th>
+                            <th>Valor Final</th>
+                            <th>Finalizar</th>
+                            <th style="display: none;">ID</th> <!-- Coluna escondida -->
+                        </tr>
+                     </thead>
+                     <tbody id="metasBody">
+                         {% if dadoGrid and dadoGrid|length > 0 %}
+                         {% for item in dadoGrid %}
+                        <tr>
+                            <td>{{ item.meta }}</td>
+                            <td>{{ item.dtInicio }}</td>
+                            <td>{{ item.dtFinal }}</td>
+                            <td>{{ item.vlAtual }}</td>
+                            <td>{{ item.vlFinal }}</td>
+                            <td><input type="checkbox" id="ckFinalizar" value="{{ item.ID }}"></td>
+                            <td style="display: none;">{{ item.ID }}</td> <!-- ID do item -->
+                        </tr>
+                        {% endfor %}
+                        {% else %}
+                        <tr>
+                             <td colspan="6" style="text-align:center;">Nenhuma meta encontrada.</td>
+                        </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+                <input type="button" class="btn excluir" value="Finalizar Selecionados" id="btnFinalizar">
+                <p class="paragrafo-centralizado"> Para alterar suas metas, <a href="/pMetas"> clique aqui</a>.</p>
+            </div>
+         </div>
+     </form>
+</body>
+
+<script src="static/js/metas.js"></script>
+
+<footer>
+    <div class="footer">
+        <h4> Administre seu Salário conosco, Manage Your Money.</h4>
+        <p>&copy; 2023 - Todos os direitos reservados</p>
+    </div>
+</footer>
+</html>
